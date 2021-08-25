@@ -4,7 +4,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>Minesweeper2</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <sonar.organization>tobywhitehead</sonar.organization>
