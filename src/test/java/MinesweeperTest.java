@@ -18,6 +18,7 @@ class MinesweeperTest {
     void displayGrid() {
         Tile[][] grid = new Tile[10][10];
         Minesweeper.generateGrid(grid);
+        grid[9][9].setCoverStatus(false);
         String sampleOutput = Minesweeper.displayGrid(grid);
         int length = sampleOutput.length();
         assertTrue(length>1, "displayGrid incorrect output");

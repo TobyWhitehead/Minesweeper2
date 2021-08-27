@@ -55,7 +55,7 @@ public class Minesweeper {
         return numMines;
     }
 
-    public static String displayGrid(Tile[][] grid) {//Gareth I am so sorry, yes it took me 70 lines of code to print a grid.
+    public static String displayGrid(Tile[][] grid) {
         String sampleString = "";
         for(Tile[] a : grid) {
 
