@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Minesweeper {
 
@@ -6,25 +7,18 @@ public class Minesweeper {
     static boolean gameOver = false;
     static int uncoverCount = 0;
 
-    public static void generateGrid() {
+    public static int generateGrid(Tile[][] grid) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 grid[i][j] = new Tile();
-                grid[i][j].setPosition(new int[]{i, j});
             }
         }
         int numMines = 0;
         do {
-            int randNumy = (int) (Math.random() * 10);
-            if (randNumy == 10) {
-                randNumy = 9;
-            }
-            int randNumx = (int) (Math.random() * 10);
-            if (randNumx == 10) {
-                randNumx = 9;
-            }
-            if (!grid[randNumy][randNumx].getMine()) {
-                grid[randNumy][randNumx].setMine(true);
+            int randNumY = (int) (Math.random() * 10);
+            int randNumX = (int) (Math.random() * 10);
+            if (!grid[randNumY][randNumX].getMine()) {
+                grid[randNumY][randNumX].setMine(true);
                 numMines++;
             }
         } while (numMines < 10);
@@ -58,74 +52,38 @@ public class Minesweeper {
                 grid[i][j].setNumber(adjMines);
             }
         }
+        return numMines;
     }
 
-    public static void displayGrid() { //Gareth I am so sorry, yes it took me 70 lines of code to print a grid.
+    public static String displayGrid(Tile[][] grid) {//Gareth I am so sorry, yes it took me 70 lines of code to print a grid.
+        String sampleString = "";
         for(Tile[] a : grid) {
-            String place1;
-            String place2;
-            String place3;
-            String place4;
-            String place5;
-            String place6;
-            String place7;
-            String place8;
-            String place9;
-            String place10;
 
+            String[] place = new String[10];
 
-            if(a[0].getCoverStatus())
-                place1 = " ";
-            else
-                place1 = Integer.toString(a[0].getNumber());
+            for(int k = 0; k < place.length; k++){
+                if(a[k].getCoverStatus()){
+                    place[k] = " ";
+                }
+                else{
+                    place[k] = Integer.toString(a[k].getNumber());
+                }
+            }
 
-            if(a[1].getCoverStatus())
-                place2 = " ";
-            else
-                place2 = Integer.toString(a[1].getNumber());
-
-            if(a[2].getCoverStatus())
-                place3 = " ";
-            else
-                place3 = Integer.toString(a[2].getNumber());
-
-            if(a[3].getCoverStatus())
-                place4 = " ";
-            else
-                place4 = Integer.toString(a[3].getNumber());
-
-            if(a[4].getCoverStatus())
-                place5 = " ";
-            else
-                place5 = Integer.toString(a[4].getNumber());
-
-            if(a[5].getCoverStatus())
-                place6 = " ";
-            else
-                place6 = Integer.toString(a[5].getNumber());
-
-            if(a[6].getCoverStatus())
-                place7 = " ";
-            else
-                place7 = Integer.toString(a[6].getNumber());
-
-            if(a[7].getCoverStatus())
-                place8 = " ";
-            else
-                place8 = Integer.toString(a[7].getNumber());
-
-            if(a[8].getCoverStatus())
-                place9 = " ";
-            else
-                place9 = Integer.toString(a[8].getNumber());
-
-            if(a[9].getCoverStatus())
-                place10 = " ";
-            else
-                place10 = Integer.toString(a[9].getNumber());
-
-            System.out.println("["+place1+"] ["+place2+"] ["+place3+"] ["+place4+"] ["+place5+"] ["+place6+"] ["+place7+"] ["+place8+"] ["+place9+"] ["+place10+"]\n");
+            ArrayList<String> outputString = new ArrayList<>();
+            for (String s : place) {
+                String s1 = "[" + s + "]";
+                outputString.add(s1);
+            }
+            StringBuilder builder = new StringBuilder();
+            for (String value : outputString) {
+                builder.append(value);
+            }
+            String textOutput = builder.toString();
+            System.out.println(textOutput);
+            sampleString = textOutput;
         }
+        return sampleString;
     }
 
     public static void clickTile() {
@@ -135,26 +93,29 @@ public class Minesweeper {
         System.out.println("Enter column number:");
         Scanner keyboard2 = new Scanner(System.in);
         int yInput = Integer.parseInt(keyboard2.nextLine());
+        //put in try or some kind of exception catch for if index out of bounds
+        if(grid[xInput - 1][yInput - 1].getCoverStatus()) {
+            uncoverCount++;
+        }
         grid[xInput - 1][yInput - 1].setCoverStatus(false);
-        uncoverCount++;
         if (grid[xInput - 1][yInput - 1].getMine()){
             gameOver = true;
             System.out.println("you hit a mine, game over");
         }
         else if (uncoverCount >= 90){
             gameOver = true;
-            displayGrid();
+            displayGrid(grid);
             System.out.println("all empty tiles cleared, game over");
         }
         else {
-            displayGrid();
+            displayGrid(grid);
         }
-
     }
 
     public static void main(String[] args) {
-        generateGrid();
-        displayGrid();
+        //put in do while loop for option to play multiple games
+        generateGrid(grid);
+        displayGrid(grid);
         do {
             clickTile();
         }while(!gameOver);

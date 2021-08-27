@@ -1,15 +1,8 @@
 public class Tile {
-    private int[] position = new int[2];
     private boolean isMine = false;
     private boolean coverStatus = true;
     int number = 0;
 
-    public int[] getPosition() {
-        return position;
-    }
-    public void setPosition(int[] newPosition) {
-        this.position = newPosition;
-    }
     public boolean getMine() {
         return isMine;
     }
