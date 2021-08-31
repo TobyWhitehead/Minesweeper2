@@ -93,21 +93,23 @@ public class Minesweeper {
         System.out.println("Enter column number:");
         Scanner keyboard2 = new Scanner(System.in);
         int yInput = Integer.parseInt(keyboard2.nextLine());
-        //put in try or some kind of exception catch for if index out of bounds
-        if(grid[xInput - 1][yInput - 1].getCoverStatus()) {
-            uncoverCount++;
-        }
-        grid[xInput - 1][yInput - 1].setCoverStatus(false);
-        if (grid[xInput - 1][yInput - 1].getMine()){
-            gameOver = true;
-            System.out.println("you hit a mine, game over");
-        }
-        else if (uncoverCount >= 90){
-            gameOver = true;
-            displayGrid(grid);
-            System.out.println("all empty tiles cleared, game over");
-        }
-        else {
+        try {
+            if (grid[xInput - 1][yInput - 1].getCoverStatus()) {
+                uncoverCount++;
+            }
+            grid[xInput - 1][yInput - 1].setCoverStatus(false);
+            if (grid[xInput - 1][yInput - 1].getMine()) {
+                gameOver = true;
+                System.out.println("you hit a mine, game over");
+            } else if (uncoverCount >= 90) {
+                gameOver = true;
+                displayGrid(grid);
+                System.out.println("all empty tiles cleared, game over");
+            } else {
+                displayGrid(grid);
+            }
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("index out of bounds");
             displayGrid(grid);
         }
     }
