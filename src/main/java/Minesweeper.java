@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Minesweeper {
 
+    //Maybe make a game class for these?
     static Tile[][] grid = new Tile[10][10];
     static boolean gameOver = false;
     static int uncoverCount = 0;

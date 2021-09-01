@@ -1,8 +1,12 @@
+package Minesweeper;
+
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
+
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import Tile;
-import Minesweeper;
 import static org.junit.Assert.*;
 
 public class Stepdefs {
@@ -23,4 +27,9 @@ public class Stepdefs {
     public void output(int expectedAnswer) {
         assertEquals(expectedAnswer, actualAnswer)
     }
+}
+
+@RunWith(Cucumber.class)
+@CucumberOptions(plugin = {"pretty"})
+public class RunCucumberTest{
 }
