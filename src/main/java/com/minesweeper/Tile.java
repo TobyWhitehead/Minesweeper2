@@ -1,3 +1,5 @@
+package com.minesweeper;
+
 public class Tile {
     private boolean isMine = false;
     private boolean coverStatus = true;

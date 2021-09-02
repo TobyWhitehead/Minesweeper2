@@ -1,21 +1,18 @@
-package Minesweeper;
-
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
-import org.junit.runner.RunWith;
+package steps;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+import com.minesweeper.*;
 
-public class Stepdefs {
-    private Tile[][] grid;
+public class StepDefinitions {
+    Tile[][] grid;
     private int actualAnswer;
 
     @Given("empty grid exists")
     public void empty_grid() {
-        Tile[][] grid = new Tile[10][10];
+        grid = new Tile[10][10];
     }
 
     @When("I run generateGrid")
@@ -25,11 +22,6 @@ public class Stepdefs {
 
     @Then("should output {int}")
     public void output(int expectedAnswer) {
-        assertEquals(expectedAnswer, actualAnswer)
+        assertEquals(expectedAnswer, actualAnswer);
     }
-}
-
-@RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"})
-public class RunCucumberTest{
 }
